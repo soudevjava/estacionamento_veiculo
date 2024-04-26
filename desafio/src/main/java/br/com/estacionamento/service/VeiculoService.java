@@ -3,7 +3,7 @@ package br.com.estacionamento.service;
 import br.com.estacionamento.dtos.VeiculoDTO;
 import br.com.estacionamento.model.Veiculo;
 import br.com.estacionamento.repository.VeiculoRepository;
-import br.com.estacionamento.service.exception.EstabelecimentoNotFoundException;
+import br.com.estacionamento.service.exception.RegraNegocioException;
 import br.com.estacionamento.service.exception.VeiculoNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class VeiculoService {
@@ -25,6 +26,9 @@ public class VeiculoService {
     public VeiculoDTO cadastrar(VeiculoDTO dto) {
 
         Veiculo veiculo = mapper.map(dto, Veiculo.class);
+
+        verificarExistenciaVeiculoPorPlaca(veiculo);
+
         veiculoRepository.save(veiculo);
 
         return mapper.map(veiculo, VeiculoDTO.class);
@@ -61,17 +65,26 @@ public class VeiculoService {
     }
 
     public VeiculoDTO findbyPlaca(String placa) {
-        List<Veiculo> veiculos = veiculoRepository.findByPlaca(placa);
 
-        for (Veiculo veiculo : veiculos) {
-            VeiculoDTO dto = mapper.map(veiculo, VeiculoDTO.class);
+        Veiculo veiculo = veiculoRepository.findByPlaca(placa);
 
-            if (dto.getPlaca().equals(placa)) {
-                return dto;
-            }
+        if (veiculo != null) {
+
+            return mapper.map(veiculo, VeiculoDTO.class);
         }
 
         throw new VeiculoNotFoundException("Essa placa nao existe");
+    }
+
+    private void verificarExistenciaVeiculoPorPlaca(Veiculo veiculo) {
+        String placa = veiculo.getPlaca();
+
+        veiculoRepository.buscarVeiculoPorPlaca(placa)
+                .ifPresent(veiculoExistente -> {
+                    if (!veiculoExistente.equals(veiculo)) {
+                        throw new RegraNegocioException(String.format("Já existe um Veiculo cadastrado com a placa %s", placa));
+                    }
+                });
     }
 
 }

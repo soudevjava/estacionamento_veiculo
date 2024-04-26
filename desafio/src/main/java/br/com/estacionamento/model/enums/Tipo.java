@@ -1,4 +1,4 @@
-package br.com.estacionamento.model;
+package br.com.estacionamento.model.enums;
 
 public enum Tipo {
 

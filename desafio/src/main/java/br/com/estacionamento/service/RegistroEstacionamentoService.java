@@ -6,7 +6,7 @@ import br.com.estacionamento.dtos.request.RegistroEstacionamentoRequestDTO;
 import br.com.estacionamento.dtos.response.RegistroEstacionamentoResponseDTO;
 import br.com.estacionamento.model.Estabelecimento;
 import br.com.estacionamento.model.RegistroEstacionamento;
-import br.com.estacionamento.model.TipoRegistro;
+import br.com.estacionamento.model.enums.TipoRegistro;
 import br.com.estacionamento.model.Veiculo;
 import br.com.estacionamento.repository.RegistroEstacionamentoRepository;
 import org.modelmapper.ModelMapper;

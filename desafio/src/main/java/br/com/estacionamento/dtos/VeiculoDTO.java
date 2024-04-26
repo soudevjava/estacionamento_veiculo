@@ -1,6 +1,6 @@
 package br.com.estacionamento.dtos;
 
-import br.com.estacionamento.model.Tipo;
+import br.com.estacionamento.model.enums.Tipo;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotBlank;
