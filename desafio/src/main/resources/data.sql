@@ -5,14 +5,14 @@ delete from estabelecimento;
 delete from registro_estacionamento;
 
 -- Dados inicias para os estabelecimentos
-INSERT INTO estabelecimento (id, nome, cnpj, endereco, telefone, quantidade_vagas_motos, quantidade_vagas_carros)
-VALUES (1, 'Estacionamento Central', '123.456.789/0001-01', 'Av. Paulista, 1001', '(11) 1234-5678', 50, 100);
+INSERT INTO estabelecimento (id, nome, cnpj, endereco_cep, endereco_logradouro, endereco_bairro, endereco_numero, endereco_complemento, endereco_cidade, endereco_estado, telefone, quantidade_vagas_motos, quantidade_vagas_carros)
+VALUES (1, 'Estacionamento Central', '12.345.678/0001-90', '12345-678', 'Rua das Flores', 'Centro', '123', 'Sala 101', 'Cidade Grande', 'Estado XYZ', '(12) 3456-7890', 20, 50);
 
-INSERT INTO estabelecimento (id, nome, cnpj, endereco, telefone, quantidade_vagas_motos, quantidade_vagas_carros)
-VALUES (2, 'Garagem do Parque', '987.654.321/0001-02', 'Rua Augusta, 500', '(11) 9876-5432', 30, 80);
+INSERT INTO estabelecimento (id, nome, cnpj, endereco_cep, endereco_logradouro, endereco_bairro, endereco_numero, endereco_complemento, endereco_cidade, endereco_estado, telefone, quantidade_vagas_motos, quantidade_vagas_carros)
+VALUES (2, 'Estacionamento VIP', '98.765.432/0001-09', '54321-876', 'Avenida dos Pássaros', 'Bela Vista', '456', 'Loja 02', 'Cidade Pequena', 'Estado ABC', '(34) 5678-9012', 30, 70);
 
-INSERT INTO estabelecimento (id, nome, cnpj, endereco, telefone, quantidade_vagas_motos, quantidade_vagas_carros)
-VALUES (3, 'Pátio dos Carros', '333.222.111/0001-03', 'Av. Faria Lima, 2000', '(11) 4567-8901', 40, 120);
+INSERT INTO estabelecimento (id, nome, cnpj, endereco_cep, endereco_logradouro, endereco_bairro, endereco_numero, endereco_complemento, endereco_cidade, endereco_estado, telefone, quantidade_vagas_motos, quantidade_vagas_carros)
+VALUES (3, 'Estacionamento Premium', '11.223.334/0001-22', '98765-432', 'Rua dos Nobres', 'Jardim Real', '789', 'Bloco A', 'Cidade Nova', 'Estado DEF', '(56) 7890-1234', 40, 80);
 
 -- Dados iniciais para os veículos
 INSERT INTO veiculo (id, marca, modelo, cor, placa, tipo, estabelecimento_id)
