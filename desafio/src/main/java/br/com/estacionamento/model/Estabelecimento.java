@@ -1,20 +1,14 @@
 package br.com.estacionamento.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "estabelecimento")
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
 public class Estabelecimento {
 
     @Id
@@ -27,8 +21,8 @@ public class Estabelecimento {
     @Column(nullable = false, unique = true)
     private String cnpj;
 
-    @Column(nullable = false)
-    private String endereco;
+    @Embedded
+    private Endereco endereco;
 
     @Column(nullable = false, unique = true)
     private String telefone;
@@ -41,9 +35,6 @@ public class Estabelecimento {
 
     @OneToMany(mappedBy="estabelecimento",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private List<Veiculo> veiculos = new ArrayList<>();
-    
-    //@OneToMany(mappedBy="registro_estabelecimento",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    //private List<RegistroEstacionamento>registro = new ArrayList<>();
     
 }
 

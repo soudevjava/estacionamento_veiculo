@@ -1,3 +1,9 @@
+set foreign_key_checks = 0;
+
+delete from veiculo;
+delete from estabelecimento;
+delete from registro_estacionamento;
+
 -- Dados inicias para os estabelecimentos
 INSERT INTO estabelecimento (id, nome, cnpj, endereco, telefone, quantidade_vagas_motos, quantidade_vagas_carros)
 VALUES (1, 'Estacionamento Central', '123.456.789/0001-01', 'Av. Paulista, 1001', '(11) 1234-5678', 50, 100);

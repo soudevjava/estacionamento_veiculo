@@ -4,17 +4,11 @@ import java.time.LocalDateTime;
 
 import br.com.estacionamento.model.enums.TipoRegistro;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name = "registro_estacionamento")
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
 public class RegistroEstacionamento {
     
     @Id

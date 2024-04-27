@@ -2,18 +2,12 @@ package br.com.estacionamento.model;
 
 import br.com.estacionamento.model.enums.Tipo;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 
 @Entity
 @Table(name = "veiculo")
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
 public class Veiculo {
 
   @Id
@@ -39,9 +33,5 @@ public class Veiculo {
   @ManyToOne
   @JoinColumn(nullable = false)
   private Estabelecimento estabelecimento;
-
-    // @ManyToOne
-    // @JoinColumn(name = "estabelecimento_id")
-    // private Estabelecimento estabelecimento;
 
 }
