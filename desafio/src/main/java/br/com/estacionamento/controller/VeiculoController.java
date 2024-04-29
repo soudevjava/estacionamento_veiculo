@@ -1,9 +1,11 @@
 package br.com.estacionamento.controller;
 
-import java.net.URI;
-
 import br.com.estacionamento.dtos.request.VeiculoRequestDTO;
 import br.com.estacionamento.dtos.response.VeiculoResponseDTO;
+import br.com.estacionamento.service.VeiculoService;
+import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,12 +13,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
-
-import br.com.estacionamento.service.VeiculoService;
-import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
 
 @RestController
 @RequestMapping("/veiculos")
@@ -29,12 +25,9 @@ public class VeiculoController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public VeiculoResponseDTO cadastrar(@Valid @RequestBody VeiculoRequestDTO dto) {
-
-        VeiculoResponseDTO veiculoDTO = veiculoService.cadastrar(dto);
-         return veiculoDTO;
-
-
+        return veiculoService.cadastrar(dto);
     }
+
 
     @Transactional
     @PutMapping("/{id}")

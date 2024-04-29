@@ -1,5 +1,6 @@
 package br.com.estacionamento.dtos.request;
 
+import br.com.estacionamento.dtos.response.VeiculoResponseDTO;
 import br.com.estacionamento.model.enums.Tipo;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -28,14 +29,16 @@ public class VeiculoRequestDTO {
 
     @Pattern(regexp = "^[A-Z]{3}-?[0-9]{4}$")
     @NotBlank(message = "A Placa do Veiculo é de preenchimento obrigatório")
-    @Size(min = 7, max = 7, message = "A Placa do Veiculo deve ter 7 caracteres")
+    @Size(min = 8, max = 8, message = "A Placa do Veiculo deve ter 7 caracteres")
     private String placa;
 
-    @NotNull(message = "O Tipo do Veiculo é de preenchimento obrigatório")
-    @Enumerated(EnumType.STRING)
-    private Tipo tipo;
+    @NotBlank(message = "O Tipo do Veiculo é de preenchimento obrigatório")
+    private String tipo;
 
     @NotNull(message = "O Id do Estabelecimento do Veiculo é de preenchimento obrigatório")
     private Long idEstabelecimento;
+
+
+
 
 }

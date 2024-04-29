@@ -74,7 +74,7 @@ public class VeiculoService {
         throw new VeiculoNotFoundException("Essa placa nao existe");
     }
 
-    private void verificarExistenciaVeiculoPorPlaca(Veiculo veiculo) {
+    private void verificarExistenciaVeiculoPorPlaca(Veiculo veiculo)  {
         String placa = veiculo.getPlaca();
 
         veiculoRepository.buscarVeiculoPorPlaca(placa)
