@@ -1,4 +1,4 @@
-package br.com.estacionamento.dtos;
+package br.com.estacionamento.dtos.request;
 
 import br.com.estacionamento.model.enums.Tipo;
 import jakarta.persistence.EnumType;
@@ -7,18 +7,12 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
-public class VeiculoDTO {
-
-    private Long id;
+public class VeiculoRequestDTO {
 
     @NotBlank(message = "A Marca do Veiculo é de preenchimento obrigatório")
     @Size(min = 3, max = 20, message = "A Marca do Veiculo deve ter entre 3 e 20 caracteres")
@@ -44,8 +38,4 @@ public class VeiculoDTO {
     @NotNull(message = "O Id do Estabelecimento do Veiculo é de preenchimento obrigatório")
     private Long idEstabelecimento;
 
-    public VeiculoDTO(String message) {
-        //TODO Auto-generated constructor stub
-    }
 }
-

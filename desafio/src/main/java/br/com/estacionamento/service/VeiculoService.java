@@ -1,6 +1,7 @@
 package br.com.estacionamento.service;
 
-import br.com.estacionamento.dtos.VeiculoDTO;
+import br.com.estacionamento.dtos.request.VeiculoRequestDTO;
+import br.com.estacionamento.dtos.response.VeiculoResponseDTO;
 import br.com.estacionamento.model.Veiculo;
 import br.com.estacionamento.repository.VeiculoRepository;
 import br.com.estacionamento.service.exception.RegraNegocioException;
@@ -11,9 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-
 @Service
 public class VeiculoService {
 
@@ -23,7 +21,7 @@ public class VeiculoService {
     @Autowired
     private ModelMapper mapper;
 
-    public VeiculoDTO cadastrar(VeiculoDTO dto) {
+    public VeiculoResponseDTO cadastrar(VeiculoRequestDTO dto) {
 
         Veiculo veiculo = mapper.map(dto, Veiculo.class);
 
@@ -31,46 +29,46 @@ public class VeiculoService {
 
         veiculoRepository.save(veiculo);
 
-        return mapper.map(veiculo, VeiculoDTO.class);
+        return mapper.map(veiculo, VeiculoResponseDTO.class);
     }
 
-    public VeiculoDTO atualizar(Long id, VeiculoDTO dto) {
+    public VeiculoResponseDTO atualizar(Long id, VeiculoRequestDTO dto) {
         Veiculo veiculo = mapper.map(dto, Veiculo.class);
         veiculo.setId(id);
         veiculo = veiculoRepository.save(veiculo);
 
-        return mapper.map(veiculo, VeiculoDTO.class);
+        return mapper.map(veiculo, VeiculoResponseDTO.class);
     }
 
-    public Page<VeiculoDTO> listar(Pageable paginacao) {
+    public Page<VeiculoResponseDTO> listar(Pageable paginacao) {
 
         if (paginacao == null || paginacao.getPageNumber() < 0 || paginacao.getPageSize() <= 0) {
             throw new IllegalArgumentException("Paginação inválida!");
         }
 
         return veiculoRepository.
-                findAll(paginacao).map(v -> mapper.map(v, VeiculoDTO.class));
+                findAll(paginacao).map(v -> mapper.map(v, VeiculoResponseDTO.class));
 
     }
 
-    public VeiculoDTO listarPorId(Long id) {
+    public VeiculoResponseDTO listarPorId(Long id) {
         Veiculo veiculo = veiculoRepository.
                 findById(id).orElseThrow(() -> new VeiculoNotFoundException("Veiculo não encontrado"));
 
-        return mapper.map(veiculo, VeiculoDTO.class);
+        return mapper.map(veiculo, VeiculoResponseDTO.class);
     }
 
     public void excluir(Long id) {
         veiculoRepository.deleteById(id);
     }
 
-    public VeiculoDTO findbyPlaca(String placa) {
+    public VeiculoResponseDTO findbyPlaca(String placa) {
 
         Veiculo veiculo = veiculoRepository.findByPlaca(placa);
 
         if (veiculo != null) {
 
-            return mapper.map(veiculo, VeiculoDTO.class);
+            return mapper.map(veiculo, VeiculoResponseDTO.class);
         }
 
         throw new VeiculoNotFoundException("Essa placa nao existe");
