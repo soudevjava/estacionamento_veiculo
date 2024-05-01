@@ -1,24 +1,14 @@
-package br.com.estacionamento.dtos;
-
-import java.util.ArrayList;
-import java.util.List;
+package br.com.estacionamento.dtos.request;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.validator.constraints.br.CNPJ;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
-public class EstabelecimentoDTO {
-
-    private Long id;
+public class EstabelecimentoRequestDTO {
 
     @NotNull(message = "O Nome do Estabelecimento é de preenchimento obrigatório")
     @Size(min = 3, max = 50, message = "O Nome do Estabelecimento deve ter entre 3 e 50 caracteres")
@@ -42,8 +32,5 @@ public class EstabelecimentoDTO {
 
     @NotNull(message = "A Quantidade de Vagas para Carros do Estabelecimento é de preenchimento obrigatório")
     private Integer quantidadeVagasCarros;
-
-    public EstabelecimentoDTO(String message) {
-    }
 
 }

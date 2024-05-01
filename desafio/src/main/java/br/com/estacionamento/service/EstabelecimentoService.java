@@ -1,6 +1,7 @@
 package br.com.estacionamento.service;
 
-import br.com.estacionamento.dtos.EstabelecimentoDTO;
+import br.com.estacionamento.dtos.request.EstabelecimentoRequestDTO;
+import br.com.estacionamento.dtos.response.EstabelecimentoResponseDTO;
 import br.com.estacionamento.model.Estabelecimento;
 import br.com.estacionamento.repository.EstabelecimentoRepository;
 import br.com.estacionamento.service.exception.EstabelecimentoNotFoundException;
@@ -20,15 +21,15 @@ public class EstabelecimentoService {
     @Autowired
     private EstabelecimentoRepository estabelecimentoRepository;
 
-    public EstabelecimentoDTO cadastrar(EstabelecimentoDTO dto) {
+    public EstabelecimentoResponseDTO cadastrar(EstabelecimentoRequestDTO dto) {
         Estabelecimento estabelecimento = modelMapper.map(dto, Estabelecimento.class);
         estabelecimentoRepository.save(estabelecimento);
 
-        return modelMapper.map(estabelecimento, EstabelecimentoDTO.class);
+        return modelMapper.map(estabelecimento, EstabelecimentoResponseDTO.class);
     }
 
 
-    public EstabelecimentoDTO atualizar(Long id, EstabelecimentoDTO dto){
+    public EstabelecimentoResponseDTO atualizar(Long id, EstabelecimentoRequestDTO dto){
         
         Estabelecimento estabelecimento = modelMapper.map(dto, Estabelecimento.class);
            
@@ -36,26 +37,26 @@ public class EstabelecimentoService {
 
         estabelecimento = estabelecimentoRepository.save(estabelecimento);
  
-        return modelMapper.map(estabelecimento, EstabelecimentoDTO.class); 
+        return modelMapper.map(estabelecimento, EstabelecimentoResponseDTO.class);
     }
 
-    public Page<EstabelecimentoDTO> listar(Pageable paginacao) {
+    public Page<EstabelecimentoResponseDTO> listar(Pageable paginacao) {
 
         if (paginacao == null || paginacao.getPageNumber() < 0 || paginacao.getPageSize() <= 0) {
             throw new IllegalArgumentException("Paginação inválida!");
         }
 
         return estabelecimentoRepository.
-                findAll(paginacao).map(e -> modelMapper.map(e, EstabelecimentoDTO.class));
+                findAll(paginacao).map(e -> modelMapper.map(e, EstabelecimentoResponseDTO.class));
 
     }
 
-    public EstabelecimentoDTO listarPorId(Long id) {
+    public EstabelecimentoResponseDTO listarPorId(Long id) {
 
         Estabelecimento estabelecimento = estabelecimentoRepository.
                 findById(id).orElseThrow(() -> new EstabelecimentoNotFoundException("Estabelecimento não encontrado"));
 
-        return modelMapper.map(estabelecimento, EstabelecimentoDTO.class);
+        return modelMapper.map(estabelecimento, EstabelecimentoResponseDTO.class);
     }
 
     public void excluir(Long id) {

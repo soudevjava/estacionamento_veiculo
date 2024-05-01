@@ -21,6 +21,4 @@ public class VeiculoResponseDTO {
 
     private Long idEstabelecimento;
 
-
-
 }

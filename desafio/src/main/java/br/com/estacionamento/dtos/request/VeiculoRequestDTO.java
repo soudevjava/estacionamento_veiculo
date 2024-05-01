@@ -1,9 +1,5 @@
 package br.com.estacionamento.dtos.request;
 
-import br.com.estacionamento.dtos.response.VeiculoResponseDTO;
-import br.com.estacionamento.model.enums.Tipo;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -37,8 +33,5 @@ public class VeiculoRequestDTO {
 
     @NotNull(message = "O Id do Estabelecimento do Veiculo é de preenchimento obrigatório")
     private Long idEstabelecimento;
-
-
-
 
 }
