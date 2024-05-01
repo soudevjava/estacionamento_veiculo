@@ -72,7 +72,7 @@ public class VeiculoController {
     public ResponseEntity<VeiculoResponseDTO> findPlaca(@PathVariable String placa) {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(veiculoService.findbyPlaca(placa));
+                .body(veiculoService.buscarPorPlaca(placa));
     }
 
 }

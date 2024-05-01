@@ -52,8 +52,8 @@ public class VeiculoService {
     }
 
     public VeiculoResponseDTO listarPorId(Long id) {
-        Veiculo veiculo = veiculoRepository.
-                findById(id).orElseThrow(() -> new VeiculoNotFoundException("Veiculo não encontrado"));
+        Veiculo veiculo = veiculoRepository.findById(id)
+                .orElseThrow(() -> new VeiculoNotFoundException("Veiculo não encontrado"));
 
         return mapper.map(veiculo, VeiculoResponseDTO.class);
     }
@@ -62,16 +62,11 @@ public class VeiculoService {
         veiculoRepository.deleteById(id);
     }
 
-    public VeiculoResponseDTO findbyPlaca(String placa) {
+    public VeiculoResponseDTO buscarPorPlaca(String placa) {
+        Veiculo veiculo = veiculoRepository.buscarVeiculoPorPlaca(placa)
+                .orElseThrow(() -> new VeiculoNotFoundException("Essa placa nao existe"));
 
-        Veiculo veiculo = veiculoRepository.findByPlaca(placa);
-
-        if (veiculo != null) {
-
-            return mapper.map(veiculo, VeiculoResponseDTO.class);
-        }
-
-        throw new VeiculoNotFoundException("Essa placa nao existe");
+        return mapper.map(veiculo, VeiculoResponseDTO.class);
     }
 
     private void verificarExistenciaVeiculoPorPlaca(Veiculo veiculo)  {
