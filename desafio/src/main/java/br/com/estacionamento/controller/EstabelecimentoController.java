@@ -2,6 +2,9 @@ package br.com.estacionamento.controller;
 
 import br.com.estacionamento.dtos.request.EstabelecimentoRequestDTO;
 import br.com.estacionamento.dtos.response.EstabelecimentoResponseDTO;
+import br.com.estacionamento.service.EstabelecimentoService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,11 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
-
-import br.com.estacionamento.service.EstabelecimentoService;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
 
 @RestController
 @RequestMapping("/estabelecimento")
@@ -23,12 +21,10 @@ public class EstabelecimentoController {
     @Autowired
     public EstabelecimentoService estabelecimentoService;
 
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public EstabelecimentoResponseDTO cadastrar(@Valid @RequestBody EstabelecimentoRequestDTO dto, UriComponentsBuilder componentsBuilder) {
+    public EstabelecimentoResponseDTO cadastrar(@Valid @RequestBody EstabelecimentoRequestDTO dto) {
            return estabelecimentoService.cadastrar(dto);
-
     }
 
     @Transactional
