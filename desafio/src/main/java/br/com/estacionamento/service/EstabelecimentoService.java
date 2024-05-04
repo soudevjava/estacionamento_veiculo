@@ -16,47 +16,51 @@ import org.springframework.stereotype.Service;
 public class EstabelecimentoService {
 
     @Autowired
-    private ModelMapper modelMapper;
-
-    @Autowired
     private EstabelecimentoRepository estabelecimentoRepository;
 
     public EstabelecimentoResponseDTO cadastrar(EstabelecimentoRequestDTO dto) {
-        Estabelecimento estabelecimento = modelMapper.map(dto, Estabelecimento.class);
+        ModelMapper mapper = new ModelMapper();
+        Estabelecimento estabelecimento = mapper.map(dto, Estabelecimento.class);
         estabelecimentoRepository.save(estabelecimento);
 
-        return modelMapper.map(estabelecimento, EstabelecimentoResponseDTO.class);
+        return mapper.map(estabelecimento, EstabelecimentoResponseDTO.class);
     }
 
 
     public EstabelecimentoResponseDTO atualizar(Long id, EstabelecimentoRequestDTO dto){
+
+        ModelMapper mapper = new ModelMapper();
         
-        Estabelecimento estabelecimento = modelMapper.map(dto, Estabelecimento.class);
+        Estabelecimento estabelecimento = mapper.map(dto, Estabelecimento.class);
            
         estabelecimento.setId(id);
 
         estabelecimento = estabelecimentoRepository.save(estabelecimento);
  
-        return modelMapper.map(estabelecimento, EstabelecimentoResponseDTO.class);
+        return mapper.map(estabelecimento, EstabelecimentoResponseDTO.class);
     }
 
     public Page<EstabelecimentoResponseDTO> listar(Pageable paginacao) {
+
+        ModelMapper mapper = new ModelMapper();
 
         if (paginacao == null || paginacao.getPageNumber() < 0 || paginacao.getPageSize() <= 0) {
             throw new IllegalArgumentException("Paginação inválida!");
         }
 
         return estabelecimentoRepository.
-                findAll(paginacao).map(e -> modelMapper.map(e, EstabelecimentoResponseDTO.class));
+                findAll(paginacao).map(e -> mapper.map(e, EstabelecimentoResponseDTO.class));
 
     }
 
     public EstabelecimentoResponseDTO listarPorId(Long id) {
 
+        ModelMapper mapper = new ModelMapper();
+
         Estabelecimento estabelecimento = estabelecimentoRepository.
                 findById(id).orElseThrow(() -> new EstabelecimentoNotFoundException("Estabelecimento não encontrado"));
 
-        return modelMapper.map(estabelecimento, EstabelecimentoResponseDTO.class);
+        return mapper.map(estabelecimento, EstabelecimentoResponseDTO.class);
     }
 
     public void excluir(Long id) {
