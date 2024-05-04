@@ -56,11 +56,11 @@ public class EstabelecimentoControllerTest {
         EstabelecimentoResponseDTO responseDTO = EstabelecimentoResponseDTOBuilder.builder().build().toEstabelecimentoResponseDTO();
 
 
-        when(estabelecimentoService.cadastrar(any(EstabelecimentoRequestDTO.class))).thenReturn(responseDTO);
+        when(estabelecimentoService.cadastrar(requestDTO)).thenReturn(responseDTO);
 
         mockMvc.perform(post(ESTABELECIMENTO_API_URL_PATH)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(responseDTO)))
+                        .content(asJsonString(requestDTO)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id", is(responseDTO.getId().intValue())))
                 .andExpect(jsonPath("$.nome", is(responseDTO.getNome())))

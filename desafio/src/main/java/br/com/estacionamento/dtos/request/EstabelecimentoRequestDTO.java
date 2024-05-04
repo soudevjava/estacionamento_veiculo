@@ -3,15 +3,11 @@ package br.com.estacionamento.dtos.request;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
 public class EstabelecimentoRequestDTO {
 
     @NotNull(message = "O Nome do Estabelecimento é de preenchimento obrigatório")
