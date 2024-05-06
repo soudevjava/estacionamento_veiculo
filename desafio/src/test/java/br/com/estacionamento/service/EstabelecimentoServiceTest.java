@@ -47,7 +47,7 @@ public class EstabelecimentoServiceTest {
 
         assertThat(createdEstabelecimentoDTO.getNome(), is(equalTo(expectedEstabelecimentoDTO.getNome())));
         assertThat(createdEstabelecimentoDTO.getCnpj(), is(equalTo(expectedEstabelecimentoDTO.getCnpj())));
-//        assertThat(createdEstabelecimentoDTO.getEndereco(), is(equalTo(expectedEstabelecimentoDTO.getEndereco())));
+        assertThat(createdEstabelecimentoDTO.getEndereco(), is(equalTo(expectedEstabelecimentoDTO.getEndereco())));
         assertThat(createdEstabelecimentoDTO.getTelefone(), is(equalTo(expectedEstabelecimentoDTO.getTelefone())));
         assertThat(createdEstabelecimentoDTO.getQuantidadeVagasCarros(), is(equalTo(expectedEstabelecimentoDTO.getQuantidadeVagasCarros())));
         assertThat(createdEstabelecimentoDTO.getQuantidadeVagasMotos(), is(equalTo(expectedEstabelecimentoDTO.getQuantidadeVagasMotos())));

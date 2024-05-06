@@ -18,6 +18,7 @@ public class EstabelecimentoService {
     @Autowired
     private EstabelecimentoRepository estabelecimentoRepository;
 
+
     public EstabelecimentoResponseDTO cadastrar(EstabelecimentoRequestDTO dto) {
         ModelMapper mapper = new ModelMapper();
         Estabelecimento estabelecimento = mapper.map(dto, Estabelecimento.class);

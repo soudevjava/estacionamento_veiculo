@@ -4,11 +4,11 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class VeiculoRequestDTO {
 
     @NotBlank(message = "A Marca do Veiculo é de preenchimento obrigatório")
@@ -16,7 +16,7 @@ public class VeiculoRequestDTO {
     private String marca;
 
     @NotBlank(message = "O Modelo do Veiculo é de preenchimento obrigatório")
-    @Size(min = 3, max = 30, message = "O Modelo do Veiculo deve ter entre 3 e 30 caracteres")
+    @Size(min = 3, max = 50, message = "O Modelo do Veiculo deve ter entre 3 e 30 caracteres")
     private String modelo;
 
     @NotBlank(message = "A Cor do Veiculo é de preenchimento obrigatório")

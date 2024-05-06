@@ -15,7 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/veiculos")
+@RequestMapping("/veiculo")
 public class VeiculoController {
 
     @Autowired
