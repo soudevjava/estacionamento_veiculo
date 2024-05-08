@@ -9,6 +9,7 @@ import lombok.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class VeiculoRequestDTO {
 
     @NotBlank(message = "A Marca do Veiculo é de preenchimento obrigatório")

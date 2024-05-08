@@ -18,10 +18,12 @@ public class VeiculoService {
     @Autowired
     private VeiculoRepository veiculoRepository;
 
-    @Autowired
-    private ModelMapper mapper;
+    private ModelMapper mapper = new ModelMapper();
+
+
 
     public VeiculoResponseDTO cadastrar(VeiculoRequestDTO dto) {
+
 
         Veiculo veiculo = mapper.map(dto, Veiculo.class);
 
@@ -69,7 +71,7 @@ public class VeiculoService {
         return mapper.map(veiculo, VeiculoResponseDTO.class);
     }
 
-    private void verificarExistenciaVeiculoPorPlaca(Veiculo veiculo)  {
+    public void verificarExistenciaVeiculoPorPlaca(Veiculo veiculo)  {
         String placa = veiculo.getPlaca();
 
         veiculoRepository.buscarVeiculoPorPlaca(placa)

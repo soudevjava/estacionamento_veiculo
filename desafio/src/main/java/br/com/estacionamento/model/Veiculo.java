@@ -8,6 +8,7 @@ import lombok.*;
 @Entity
 @Table(name = "veiculo")
 @Data
+
 public class Veiculo {
 
   @Id
