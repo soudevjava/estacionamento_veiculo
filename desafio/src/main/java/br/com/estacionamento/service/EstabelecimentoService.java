@@ -18,9 +18,10 @@ public class EstabelecimentoService {
     @Autowired
     private EstabelecimentoRepository estabelecimentoRepository;
 
+    private ModelMapper mapper = new ModelMapper();
 
     public EstabelecimentoResponseDTO cadastrar(EstabelecimentoRequestDTO dto) {
-        ModelMapper mapper = new ModelMapper();
+
         Estabelecimento estabelecimento = mapper.map(dto, Estabelecimento.class);
         estabelecimentoRepository.save(estabelecimento);
 
@@ -30,7 +31,6 @@ public class EstabelecimentoService {
 
     public EstabelecimentoResponseDTO atualizar(Long id, EstabelecimentoRequestDTO dto){
 
-        ModelMapper mapper = new ModelMapper();
         
         Estabelecimento estabelecimento = mapper.map(dto, Estabelecimento.class);
            
@@ -43,8 +43,6 @@ public class EstabelecimentoService {
 
     public Page<EstabelecimentoResponseDTO> listar(Pageable paginacao) {
 
-        ModelMapper mapper = new ModelMapper();
-
         if (paginacao == null || paginacao.getPageNumber() < 0 || paginacao.getPageSize() <= 0) {
             throw new IllegalArgumentException("Paginação inválida!");
         }
@@ -55,8 +53,6 @@ public class EstabelecimentoService {
     }
 
     public EstabelecimentoResponseDTO listarPorId(Long id) {
-
-        ModelMapper mapper = new ModelMapper();
 
         Estabelecimento estabelecimento = estabelecimentoRepository.
                 findById(id).orElseThrow(() -> new EstabelecimentoNotFoundException("Estabelecimento não encontrado"));
