@@ -1,11 +1,11 @@
 package br.com.estacionamento.dtos.request;
 
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class RegistroEstacionamentoRequestDTO {
 
     @NotNull(message = "O id do estabelecimento é obrigatório")
@@ -13,5 +13,6 @@ public class RegistroEstacionamentoRequestDTO {
 
     @NotNull(message = "O id do veiculo é obrigatório")
     private Long idVeiculo;
+
 
 }

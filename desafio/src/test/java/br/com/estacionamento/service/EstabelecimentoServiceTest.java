@@ -40,7 +40,7 @@ public class EstabelecimentoServiceTest {
         EstabelecimentoRequestDTO expectedEstabelecimentoDTO = EstabelecimentoRequestDTOBuilder.builder().build().toEstabelecimentoRequestDTO();
         Estabelecimento expectedSavedEstabelecimento = mapper.map(expectedEstabelecimentoDTO, Estabelecimento.class);
         assertNotNull(expectedSavedEstabelecimento);
-        lenient().when(estabelecimentoRepository.findByName(expectedEstabelecimentoDTO.getNome())).thenReturn(Optional.empty());
+        lenient().when(estabelecimentoRepository.findByNome(expectedEstabelecimentoDTO.getNome())).thenReturn(Optional.empty());
         when(estabelecimentoRepository.save(expectedSavedEstabelecimento)).thenReturn(expectedSavedEstabelecimento);
 
         EstabelecimentoResponseDTO createdEstabelecimentoDTO = estabelecimentoService.cadastrar(expectedEstabelecimentoDTO);
