@@ -9,6 +9,9 @@ import br.com.estacionamento.model.RegistroEstacionamento;
 import br.com.estacionamento.model.enums.TipoRegistro;
 import br.com.estacionamento.model.Veiculo;
 import br.com.estacionamento.repository.RegistroEstacionamentoRepository;
+import br.com.estacionamento.service.exception.EstabelecimentoNotFoundException;
+import br.com.estacionamento.service.exception.VeiculoNotFoundException;
+import org.jetbrains.annotations.NotNull;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,9 +21,8 @@ import java.time.LocalDateTime;
 @Service
 public class RegistroEstacionamentoService {
 
-   @Autowired
-   private ModelMapper mapper;
-    
+
+
    @Autowired
    private RegistroEstacionamentoRepository registroEstacionamentoRepository ;
 
@@ -30,6 +32,10 @@ public class RegistroEstacionamentoService {
    @Autowired
    private VeiculoService veiculoService;
 
+
+   private ModelMapper mapper = new ModelMapper();
+
+
    public RegistroEstacionamentoResponseDTO registrarEntrada(RegistroEstacionamentoRequestDTO dto) {
       return registrar(dto, TipoRegistro.ENTRADA);
    }
@@ -38,8 +44,8 @@ public class RegistroEstacionamentoService {
       return registrar(dto, TipoRegistro.SAIDA);
    }
 
-   private RegistroEstacionamentoResponseDTO registrar(RegistroEstacionamentoRequestDTO dto, TipoRegistro tipoRegistro) {
-      Estabelecimento estabelecimento = buscarEstabelecimento(dto.getIdEstabelecimento());
+   public RegistroEstacionamentoResponseDTO registrar(@NotNull RegistroEstacionamentoRequestDTO dto, TipoRegistro tipoRegistro) {
+      Estabelecimento estabelecimento = buscarEstabelecimento(dto.getEstabelecimentoId());
       Veiculo veiculo = buscarVeiculo(dto.getIdVeiculo());
 
       RegistroEstacionamento registroEstacionamento = mapper.map(dto, RegistroEstacionamento.class);
@@ -53,13 +59,19 @@ public class RegistroEstacionamentoService {
       return mapper.map(registroEstacionamento, RegistroEstacionamentoResponseDTO.class);
    }
 
-   private Estabelecimento buscarEstabelecimento(Long idEstabelecimento) {
+   public Estabelecimento buscarEstabelecimento(Long idEstabelecimento) {
       EstabelecimentoResponseDTO estabelecimentoDTO = estabelecimentoService.listarPorId(idEstabelecimento);
+      if (estabelecimentoDTO == null){
+         throw new EstabelecimentoNotFoundException("Estabelecimento não encontrado");
+      }
       return mapper.map(estabelecimentoDTO, Estabelecimento.class);
    }
 
-   private Veiculo buscarVeiculo(Long idVeiculo) {
+   public Veiculo buscarVeiculo(Long idVeiculo) {
       VeiculoResponseDTO veiculoDTO = veiculoService.listarPorId(idVeiculo);
+      if (veiculoDTO == null){
+         throw new VeiculoNotFoundException("Veiculo não encontrado");
+      }
       return mapper.map(veiculoDTO, Veiculo.class);
    }
 
