@@ -48,7 +48,12 @@ public class EstabelecimentoServiceTest {
 
         assertThat(createdEstabelecimentoDTO.getNome(), is(equalTo(expectedEstabelecimentoDTO.getNome())));
         assertThat(createdEstabelecimentoDTO.getCnpj(), is(equalTo(expectedEstabelecimentoDTO.getCnpj())));
-//        assertThat(createdEstabelecimentoDTO.getEndereco(), is(equalTo(expectedEstabelecimentoDTO.getEndereco())));
+        assertThat(createdEstabelecimentoDTO.getEndereco().getCep(), is(equalTo(expectedEstabelecimentoDTO.getEndereco().getCep())));
+        assertThat(createdEstabelecimentoDTO.getEndereco().getBairro(), is(equalTo(expectedEstabelecimentoDTO.getEndereco().getBairro())));
+        assertThat(createdEstabelecimentoDTO.getEndereco().getLogradouro(), is(equalTo(expectedEstabelecimentoDTO.getEndereco().getLogradouro())));
+        assertThat(createdEstabelecimentoDTO.getEndereco().getNumero(), is(equalTo(expectedEstabelecimentoDTO.getEndereco().getNumero())));
+        assertThat(createdEstabelecimentoDTO.getEndereco().getCidade(), is(equalTo(expectedEstabelecimentoDTO.getEndereco().getCidade())));
+        assertThat(createdEstabelecimentoDTO.getEndereco().getEstado(), is(equalTo(expectedEstabelecimentoDTO.getEndereco().getEstado())));
         assertThat(createdEstabelecimentoDTO.getTelefone(), is(equalTo(expectedEstabelecimentoDTO.getTelefone())));
         assertThat(createdEstabelecimentoDTO.getQuantidadeVagasCarros(), is(equalTo(expectedEstabelecimentoDTO.getQuantidadeVagasCarros())));
         assertThat(createdEstabelecimentoDTO.getQuantidadeVagasMotos(), is(equalTo(expectedEstabelecimentoDTO.getQuantidadeVagasMotos())));

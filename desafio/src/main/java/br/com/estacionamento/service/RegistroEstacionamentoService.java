@@ -11,7 +11,7 @@ import br.com.estacionamento.model.Veiculo;
 import br.com.estacionamento.repository.RegistroEstacionamentoRepository;
 import br.com.estacionamento.service.exception.EstabelecimentoNotFoundException;
 import br.com.estacionamento.service.exception.VeiculoNotFoundException;
-import org.jetbrains.annotations.NotNull;
+import jakarta.validation.constraints.NotNull;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

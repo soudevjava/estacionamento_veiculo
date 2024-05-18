@@ -1,5 +1,6 @@
 package br.com.estacionamento.dtos.request;
 
+import br.com.estacionamento.model.Endereco;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -20,7 +21,7 @@ public class EstabelecimentoRequestDTO {
     private String cnpj;
 
     @NotNull(message = "O Endereço do Estabelecimento é de preenchimento obrigatório")
-    private String endereco;
+    private Endereco endereco;
 
     @Pattern(regexp= "^\\(\\d{2}\\)\\s\\d{4}-\\d{4}$")
     @NotNull(message = "O Telefone do Estabelecimento é de preenchimento obrigatório")

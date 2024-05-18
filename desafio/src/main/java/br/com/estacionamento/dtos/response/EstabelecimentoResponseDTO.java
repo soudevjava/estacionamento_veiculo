@@ -1,5 +1,6 @@
 package br.com.estacionamento.dtos.response;
 
+import br.com.estacionamento.model.Endereco;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,7 @@ public class EstabelecimentoResponseDTO {
 
     private String cnpj;
 
-    private String endereco;
+    private Endereco endereco;
 
     private String telefone;
 

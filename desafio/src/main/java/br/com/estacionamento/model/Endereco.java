@@ -7,6 +7,8 @@ import lombok.*;
 
 @Data
 @Embeddable
+@AllArgsConstructor
+@NoArgsConstructor
 public class Endereco {
 
     @Column(name = "endereco_cep")
