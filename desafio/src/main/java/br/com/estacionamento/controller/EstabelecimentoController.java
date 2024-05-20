@@ -1,6 +1,7 @@
 package br.com.estacionamento.controller;
 
 import br.com.estacionamento.dtos.request.EstabelecimentoRequestDTO;
+import br.com.estacionamento.dtos.response.CepResponseDTO;
 import br.com.estacionamento.dtos.response.EstabelecimentoResponseDTO;
 import br.com.estacionamento.service.EstabelecimentoService;
 import jakarta.validation.Valid;
@@ -13,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 @RestController
 @RequestMapping("/estabelecimento")
@@ -40,6 +42,12 @@ public class EstabelecimentoController {
         }
     }
 
+    @GetMapping("/cep/{cep}")
+    public CepResponseDTO consultarCep(@PathVariable("cep") String cep) {
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<CepResponseDTO> response = restTemplate.getForEntity(String.format("https://viacep.com.br/ws/%s/json", cep), CepResponseDTO.class);
+        return response.getBody();
+    }
 
     @GetMapping
     public ResponseEntity<Page<EstabelecimentoResponseDTO>> listar(@PageableDefault(size = 10) Pageable paginacao) {
