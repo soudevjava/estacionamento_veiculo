@@ -18,6 +18,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
@@ -66,7 +67,20 @@ public class RegistroEstacionamentoControllerTest {
 
         lenient().when(registroEstacionamentoService.registrarEntrada(requestDTO)).thenReturn(responseDTO);
         lenient().when(registroEstacionamentoService.registrarSaida(requestDTO)).thenReturn(responseDTO);
+        
+        ResponseEntity<RegistroEstacionamentoResponseDTO> responseEntrada = registroEstacionamentoController.registrarEntrada(requestDTO);
+        ResponseEntity<RegistroEstacionamentoResponseDTO> responseSaida = registroEstacionamentoController.registrarSaida(requestDTO);
 
+        assertNotNull(responseEntrada);
+        assertNotNull(responseSaida);
+
+        assertEquals(responseDTO, responseEntrada.getBody());
+        assertNotNull(responseEntrada.getBody());
+        assertEquals(HttpStatus.CREATED,responseEntrada.getStatusCode());
+
+        assertEquals(responseDTO, responseSaida.getBody());
+        assertEquals(HttpStatus.CREATED,responseSaida.getStatusCode());
+        assertNotNull(responseSaida.getBody());
 
         mockMvc.perform(post(REGISTRO_ESTACIONAMENTO_ENTRADA_API_URL_PATH)
                         .contentType(MediaType.APPLICATION_JSON)
