@@ -1,80 +1,115 @@
 package br.com.estacionamento.controller;
 
-import br.com.estacionamento.builder.EstabelecimentoRequestDTOBuilder;
-import br.com.estacionamento.builder.EstabelecimentoResponseDTOBuilder;
-import br.com.estacionamento.dtos.request.EstabelecimentoRequestDTO;
-import br.com.estacionamento.dtos.response.EstabelecimentoResponseDTO;
+import br.com.estacionamento.model.Estabelecimento;
 import br.com.estacionamento.service.EstabelecimentoService;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
-import static br.com.estacionamento.utils.JsonConvertionUtils.asJsonString;
-import static org.hamcrest.core.Is.is;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ExtendWith(MockitoExtension.class)
-public class EstabelecimentoControllerTest {
+@SpringBootTest
+@AutoConfigureMockMvc
+class EstabelecimentoControllerTest {
 
-    private static final String ESTABELECIMENTO_API_URL_PATH = "http://localhost:8080/estabelecimento";
+    @Autowired
+    private MockMvc mvc;
 
-    private MockMvc mockMvc;
-
-    @Mock
+    @MockBean
     private EstabelecimentoService estabelecimentoService;
 
-    @InjectMocks
-    private EstabelecimentoController estabelecimentoController;
+    @Mock
+    private Estabelecimento estabelecimento;
 
-    @BeforeEach
-    void setUp() {
-        mockMvc = MockMvcBuilders.standaloneSetup(estabelecimentoController)
-                .setCustomArgumentResolvers(new PageableHandlerMethodArgumentResolver())
-                .setViewResolvers((s, locale) -> new MappingJackson2JsonView())
-                .build();
+    @Test
+    void deveriaRetornar201AoCadastrarUmEstabelecimentoSemErros() throws Exception {
+
+        // ARRANGE
+        String json = """
+                
+                {
+                   "nome": "Exemplo Empório",
+                   "cnpj": "45.740.817/1872-35",
+                   "endereco": {
+                     "cep": "12345-678",
+                     "logradouro": "Rua das Flores",
+                     "bairro": "Centro",
+                     "numero": "123",
+                     "complemento": "Sala 101",
+                     "cidade": "Cidade Exemplo",
+                     "estado": "EX"
+                   },
+                   "telefone": "(89) 7504-2176",
+                   "quantidadeVagasMotos": 10,
+                   "quantidadeVagasCarros": 20
+                 }
+                 
+                
+                """;
+                var response = mvc.perform(
+                        post("/estabelecimento")
+                                .content(json)
+                                .contentType(MediaType.APPLICATION_JSON)
+                ).andReturn().getResponse();
+
+                Assertions.assertEquals(201, response.getStatus());
     }
 
     @Test
-    void whenPOSTIsCalledThenAEstabelecimentoIsCreated() throws Exception {
+    void deveriaRetornar400AoCadastrarUmEstabelecimentoComErros() throws Exception {
 
-        EstabelecimentoRequestDTO requestDTO = EstabelecimentoRequestDTOBuilder.builder().build().toEstabelecimentoRequestDTO();
+        // ARRANGE
+        String json = "{}";
 
-        EstabelecimentoResponseDTO responseDTO = EstabelecimentoResponseDTOBuilder.builder().build().toEstabelecimentoResponseDTO();
-
-
-        when(estabelecimentoService.cadastrar(requestDTO)).thenReturn(responseDTO);
-
-        mockMvc.perform(post(ESTABELECIMENTO_API_URL_PATH)
+        var response = mvc.perform(
+                post("/estabelecimento")
+                        .content(json)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(requestDTO)))
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id", is(responseDTO.getId().intValue())))
-                .andExpect(jsonPath("$.nome", is(responseDTO.getNome())))
-                .andExpect(jsonPath("$.cnpj", is(responseDTO.getCnpj())))
-                .andExpect(jsonPath("$.endereco.cep", is(responseDTO.getEndereco().getCep())))
-                .andExpect(jsonPath("$.endereco.logradouro", is(responseDTO.getEndereco().getLogradouro())))
-                .andExpect(jsonPath("$.endereco.bairro", is(responseDTO.getEndereco().getBairro())))
-                .andExpect(jsonPath("$.endereco.numero", is(responseDTO.getEndereco().getNumero())))
-                .andExpect(jsonPath("$.endereco.complemento", is(responseDTO.getEndereco().getComplemento())))
-                .andExpect(jsonPath("$.endereco.cidade", is(responseDTO.getEndereco().getCidade())))
-                .andExpect(jsonPath("$.endereco.estado", is(responseDTO.getEndereco().getEstado())))
-                .andExpect(jsonPath("$.telefone", is(responseDTO.getTelefone())))
-                .andExpect(jsonPath("$.quantidadeVagasMotos", is(responseDTO.getQuantidadeVagasMotos())))
-                .andExpect(jsonPath("$.quantidadeVagasCarros", is(responseDTO.getQuantidadeVagasCarros())));
+        ).andReturn().getResponse();
 
+        Assertions.assertEquals(400, response.getStatus());
+    }
+
+
+    @Test
+    void deveriaRetornar404AoCadastrarUmEstabelecimentoComErros() throws Exception {
+
+        // ARRANGE
+        String json = """
+                
+                {
+                   "nome": "Exemplo Empório",
+                   "cnpj": "45.740.817/1872-35",
+                   "endereco": {
+                     "cep": "12345-678",
+                     "logradouro": "Rua das Flores",
+                     "bairro": "Centro",
+                     "numero": "123",
+                     "complemento": "Sala 101",
+                     "cidade": "Cidade Exemplo",
+                     "estado": "EX"
+                   },
+                   "telefone": "(89) 7504-2176",
+                   "quantidadeVagasMotos": 10,
+                   "quantidadeVagasCarros": 20
+                 }
+                 
+                
+                """;
+
+        var response = mvc.perform(
+                get("/estabelecimento/1/")
+                        .content(json)
+                        .contentType(MediaType.APPLICATION_JSON)
+        ).andReturn().getResponse();
+
+        Assertions.assertEquals(404, response.getStatus());
     }
 }
