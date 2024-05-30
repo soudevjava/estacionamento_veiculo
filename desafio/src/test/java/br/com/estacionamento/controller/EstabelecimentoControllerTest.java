@@ -1,5 +1,6 @@
 package br.com.estacionamento.controller;
 
+
 import br.com.estacionamento.model.Estabelecimento;
 import br.com.estacionamento.service.EstabelecimentoService;
 import org.junit.jupiter.api.Assertions;
@@ -14,6 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -33,7 +35,7 @@ class EstabelecimentoControllerTest {
 
         // ARRANGE
         String json = """
-                
+                                
                 {
                    "nome": "Exemplo Empório",
                    "cnpj": "45.740.817/1872-35",
@@ -51,15 +53,15 @@ class EstabelecimentoControllerTest {
                    "quantidadeVagasCarros": 20
                  }
                  
-                
+                                
                 """;
-                var response = mvc.perform(
-                        post("/estabelecimento")
-                                .content(json)
-                                .contentType(MediaType.APPLICATION_JSON)
-                ).andReturn().getResponse();
+        var response = mvc.perform(
+                post("/estabelecimento")
+                        .content(json)
+                        .contentType(MediaType.APPLICATION_JSON)
+        ).andReturn().getResponse();
 
-                Assertions.assertEquals(201, response.getStatus());
+        Assertions.assertEquals(201, response.getStatus());
     }
 
     @Test
@@ -111,5 +113,6 @@ class EstabelecimentoControllerTest {
         ).andReturn().getResponse();
 
         Assertions.assertEquals(404, response.getStatus());
+
+        }
     }
-}

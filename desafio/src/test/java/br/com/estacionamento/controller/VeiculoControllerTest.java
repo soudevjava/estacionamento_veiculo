@@ -1,14 +1,9 @@
 package br.com.estacionamento.controller;
 
-import br.com.estacionamento.builder.EstabelecimentoRequestDTOBuilder;
-import br.com.estacionamento.builder.EstabelecimentoResponseDTOBuilder;
 import br.com.estacionamento.builder.VeiculoRequestDTOBuilder;
 import br.com.estacionamento.builder.VeiculoResponseDTOBuilder;
-import br.com.estacionamento.dtos.request.EstabelecimentoRequestDTO;
 import br.com.estacionamento.dtos.request.VeiculoRequestDTO;
-import br.com.estacionamento.dtos.response.EstabelecimentoResponseDTO;
 import br.com.estacionamento.dtos.response.VeiculoResponseDTO;
-import br.com.estacionamento.service.EstabelecimentoService;
 import br.com.estacionamento.service.VeiculoService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,19 +12,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
-import java.net.http.HttpResponse;
-
 import static br.com.estacionamento.utils.JsonConvertionUtils.asJsonString;
 import static org.hamcrest.core.Is.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
