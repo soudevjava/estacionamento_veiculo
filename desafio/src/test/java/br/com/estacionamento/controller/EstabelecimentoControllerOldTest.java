@@ -8,6 +8,7 @@ import br.com.estacionamento.service.EstabelecimentoService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -28,8 +29,7 @@ import java.util.Collections;
 import static br.com.estacionamento.utils.JsonConvertionUtils.asJsonString;
 import static org.hamcrest.core.Is.is;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.lenient;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -39,6 +39,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class EstabelecimentoControllerOldTest {
 
     private static final String ESTABELECIMENTO_API_URL_PATH = "http://localhost:8080/estabelecimento";
+
+    private static final String ESTABELECIMENTO_API_URL_PATH_ID = "http://localhost:8080/estabelecimento/{id}";
+
 
     private MockMvc mockMvc;
 
@@ -141,4 +144,26 @@ public class EstabelecimentoControllerOldTest {
                 .andExpect(jsonPath("$.numberOfElements",is(1)))
                 .andExpect(jsonPath("$.empty",is(false)));
     }
+
+    @Test
+    void WhenUpdaThenReturnId() throws Exception {
+        EstabelecimentoResponseDTO responsDTO = EstabelecimentoResponseDTOBuilder.builder().build().toEstabelecimentoResponseDTO();
+        Long id = 1L;
+
+        when(estabelecimentoService.listarPorId(id)).thenReturn(responsDTO);
+
+        ResponseEntity<EstabelecimentoResponseDTO> response = estabelecimentoController.detalhar(id);
+
+        assertAll(
+                ()->assertNotNull(response),
+                ()->assertEquals(EstabelecimentoResponseDTO.class,responsDTO.getClass()),
+                ()->assertEquals(ResponseEntity.class,response.getClass()),
+                ()->assertEquals(HttpStatus.OK,response.getStatusCode())
+        );
+
+        mockMvc.perform(get(ESTABELECIMENTO_API_URL_PATH_ID,responsDTO.getId())
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
 }

@@ -6,6 +6,7 @@ import br.com.estacionamento.dtos.request.EstabelecimentoRequestDTO;
 import br.com.estacionamento.dtos.response.EstabelecimentoResponseDTO;
 import br.com.estacionamento.model.Estabelecimento;
 import br.com.estacionamento.repository.EstabelecimentoRepository;
+import br.com.estacionamento.service.exception.EstabelecimentoNotFoundException;
 import br.com.estacionamento.service.exception.RegraNegocioException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,8 +23,10 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.Optional.empty;
+import static java.util.Optional.of;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
@@ -108,11 +111,22 @@ public class EstabelecimentoServiceTest {
         assertThat(estabelecimentoDTOPage.getTotalPages(),is(1));
 
 
+    }
+
+    @Test
+    void whenGETListWithoutBeersIsCalledThenOkStatusIsReturned(){
+        EstabelecimentoResponseDTO expectedEstabelecimentoDTO = EstabelecimentoResponseDTOBuilder.builder().build().toEstabelecimentoResponseDTO();
+        Estabelecimento expectedSavedEstabelecimento = mapper.map(expectedEstabelecimentoDTO, Estabelecimento.class);
+        assertNotNull(expectedSavedEstabelecimento);
 
 
+        Long id = 1L;
+        when(estabelecimentoRepository.findById(id)).thenReturn(Optional.empty());
 
+        EstabelecimentoNotFoundException exception = assertThrows(EstabelecimentoNotFoundException.class,()-> estabelecimentoService.listarPorId(id));
+        assertEquals("Estabelecimento não encontrado",exception.getMessage());
 
-
+        verify(estabelecimentoRepository, times(1)).findById(id);
 
     }
 
