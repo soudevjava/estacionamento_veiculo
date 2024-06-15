@@ -8,8 +8,6 @@ import br.com.estacionamento.model.Estabelecimento;
 import br.com.estacionamento.repository.EstabelecimentoRepository;
 import br.com.estacionamento.service.exception.EstabelecimentoNotFoundException;
 import br.com.estacionamento.service.exception.RegraNegocioException;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -21,12 +19,10 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 import static java.util.Optional.empty;
-import static java.util.Optional.of;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
@@ -35,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class EstabelecimentoServiceTest {
+public class EstabelecimentoServiceOldTest {
 
     @Mock
     private EstabelecimentoRepository estabelecimentoRepository;

@@ -3,6 +3,7 @@ package br.com.estacionamento.model;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.Embedded;
+import jakarta.validation.constraints.Pattern;
 import lombok.*;
 
 @Data
@@ -12,6 +13,7 @@ import lombok.*;
 public class Endereco {
 
     @Column(name = "endereco_cep")
+    @Pattern(regexp = "\\d{5}-\\d{3}")
     private String cep;
 
     @Column(name = "endereco_logradouro")
