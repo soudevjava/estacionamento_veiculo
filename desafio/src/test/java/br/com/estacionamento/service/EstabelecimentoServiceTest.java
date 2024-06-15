@@ -132,7 +132,6 @@ public class EstabelecimentoServiceTest {
 
     }
 
-
     @Test
     void whenExclusionIsCalledWithValidIdThenABeerShouldBeDeleted(){
         EstabelecimentoResponseDTO expectedEstabelecimentoDTO = EstabelecimentoResponseDTOBuilder.builder().build().toEstabelecimentoResponseDTO();
