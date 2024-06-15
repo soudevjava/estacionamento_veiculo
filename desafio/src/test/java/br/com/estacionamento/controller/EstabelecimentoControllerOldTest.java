@@ -181,7 +181,6 @@ public class EstabelecimentoControllerOldTest {
                 ()->assertEquals(ResponseEntity.class,response.getClass()),
                 ()->assertEquals(HttpStatus.NO_CONTENT,response.getStatusCode()),
                 () -> assertDoesNotThrow(() -> estabelecimentoController.excluir(responsDTO.getId()))
-
         );
 
         verify(estabelecimentoService, times(2)).excluir(responsDTO.getId());
