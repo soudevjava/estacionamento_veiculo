@@ -48,6 +48,8 @@ public class EstabelecimentoServiceTest {
 
 
 
+
+
     @Test
     void whenEstabelecimentoInformedThenItShouldBeCreated() throws RegraNegocioException {
 
@@ -127,6 +129,19 @@ public class EstabelecimentoServiceTest {
         assertEquals("Estabelecimento não encontrado",exception.getMessage());
 
         verify(estabelecimentoRepository, times(1)).findById(id);
+
+    }
+
+
+    @Test
+    void whenExclusionIsCalledWithValidIdThenABeerShouldBeDeleted(){
+        EstabelecimentoResponseDTO expectedEstabelecimentoDTO = EstabelecimentoResponseDTOBuilder.builder().build().toEstabelecimentoResponseDTO();
+
+        doNothing().when(estabelecimentoRepository).deleteById(expectedEstabelecimentoDTO.getId());
+
+        estabelecimentoService.excluir(expectedEstabelecimentoDTO.getId());
+
+        verify(estabelecimentoRepository,times(1)).deleteById(expectedEstabelecimentoDTO.getId());
 
     }
 

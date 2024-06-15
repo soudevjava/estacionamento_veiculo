@@ -30,8 +30,7 @@ import static br.com.estacionamento.utils.JsonConvertionUtils.asJsonString;
 import static org.hamcrest.core.Is.is;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -164,6 +163,32 @@ public class EstabelecimentoControllerOldTest {
         mockMvc.perform(get(ESTABELECIMENTO_API_URL_PATH_ID,responsDTO.getId())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
+    }
+
+
+    @Test
+    void whenDELETEIsCalledWithValidIdThenNoContentStatusIsReturned() throws Exception {
+        EstabelecimentoResponseDTO responsDTO = EstabelecimentoResponseDTOBuilder.builder().build().toEstabelecimentoResponseDTO();
+
+        doNothing().when(estabelecimentoService).excluir(responsDTO.getId());
+
+
+        ResponseEntity<EstabelecimentoResponseDTO> response = estabelecimentoController.excluir(responsDTO.getId());
+
+        assertAll(
+                ()->assertNotNull(response),
+                ()->assertEquals(EstabelecimentoResponseDTO.class,responsDTO.getClass()),
+                ()->assertEquals(ResponseEntity.class,response.getClass()),
+                ()->assertEquals(HttpStatus.NO_CONTENT,response.getStatusCode()),
+                () -> assertDoesNotThrow(() -> estabelecimentoController.excluir(responsDTO.getId()))
+        );
+
+        verify(estabelecimentoService, times(2)).excluir(responsDTO.getId());
+
+        mockMvc.perform(delete(ESTABELECIMENTO_API_URL_PATH_ID,responsDTO.getId())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent());
+
     }
 
 }
