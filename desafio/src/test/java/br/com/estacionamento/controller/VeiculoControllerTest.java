@@ -61,6 +61,7 @@ public class VeiculoControllerTest {
     void deveriaRetornar404AoCadastrarUmVeiculoComErros() throws Exception {
 
         //ARRANGE
+        //
 
         String json = """
                 {
