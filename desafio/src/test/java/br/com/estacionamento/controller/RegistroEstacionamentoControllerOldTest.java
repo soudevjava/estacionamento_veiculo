@@ -29,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(MockitoExtension.class)
-public class RegistroEstacionamentoControllerTest {
+public class RegistroEstacionamentoControllerOldTest {
 
     private static final String REGISTRO_ESTACIONAMENTO_ENTRADA_API_URL_PATH = "http://localhost:8080/registro/estacionamento/entrada";
     private static final String REGISTRO_ESTACIONAMENTO_SAIDA_API_URL_PATH = "http://localhost:8080/registro/estacionamento/saida";

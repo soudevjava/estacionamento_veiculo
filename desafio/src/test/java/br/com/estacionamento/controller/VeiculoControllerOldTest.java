@@ -27,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(MockitoExtension.class)
-public class VeiculoControllerTest {
+public class VeiculoControllerOldTest {
 
     private static final String VEICULO_API_URL_PATH = "http://localhost:8080/veiculo";
 
@@ -37,7 +37,7 @@ public class VeiculoControllerTest {
     private VeiculoService veiculoService;
 
     @InjectMocks
-    private VeiculoController veiculoController;
+    private VeiculoControllerTest veiculoController;
 
     @BeforeEach
     void setUp() {

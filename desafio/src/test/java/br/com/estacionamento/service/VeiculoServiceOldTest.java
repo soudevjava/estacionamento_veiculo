@@ -6,8 +6,6 @@ import br.com.estacionamento.dtos.response.VeiculoResponseDTO;
 import br.com.estacionamento.model.Veiculo;
 import br.com.estacionamento.repository.VeiculoRepository;
 import br.com.estacionamento.service.exception.RegraNegocioException;
-import org.aspectj.lang.annotation.Before;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -25,7 +23,7 @@ import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class VeiculoServiceTest {
+public class VeiculoServiceOldTest {
 
     @Mock
     private VeiculoRepository veiculoRepository;

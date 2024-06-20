@@ -9,21 +9,12 @@ import br.com.estacionamento.model.RegistroEstacionamento;
 import br.com.estacionamento.model.enums.TipoRegistro;
 import br.com.estacionamento.repository.RegistroEstacionamentoRepository;
 import br.com.estacionamento.service.exception.RegraNegocioException;
-import org.apache.coyote.Response;
-import org.hamcrest.Matcher;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-
-import java.time.temporal.ChronoUnit;
 
 import static org.apache.commons.lang3.Validate.isAssignableFrom;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -36,7 +27,7 @@ import static org.mockito.Mockito.when;
 
 
 @ExtendWith(MockitoExtension.class)
-public class RegistroEstacionamentoServiceTest {
+public class RegistroEstacionamentoServiceOldTest {
 
     @Mock
     private RegistroEstacionamentoRepository registroEstacionamentoRepository;
