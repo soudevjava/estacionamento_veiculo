@@ -12,7 +12,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 
 @SpringBootTest
@@ -100,6 +100,122 @@ public class VeiculoControllerTest {
         ).andReturn().getResponse();
 
         Assertions.assertEquals(400, response.getStatus());
+    }
+
+
+
+    @Test
+    void  deveriaAtualizarUmVeiculoSemErros() throws Exception{
+
+        Long id =1L;
+
+        String json = """
+                {
+                  "marca": "Toyota",
+                  "modelo": "Corolla",
+                  "cor": "Prata",
+                  "placa": "YYT-8885",
+                  "tipo": "MOTO",
+                  "idEstabelecimento": 1
+                }
+                
+                """;
+        var response = mvc.perform(
+                put("/veiculo/" + id)
+                        .content(json)
+                        .contentType(MediaType.APPLICATION_JSON)
+        ).andReturn().getResponse();
+
+        Assertions.assertEquals(200, response.getStatus());
+
+    }
+
+
+    @Test
+    void  deveriaNaoAtualizarUmVeiculoSemErros() throws Exception{
+
+        Long id =1L;
+
+        String json = """
+                {
+                  "marca": "Toyota",
+                  "modelo": "Corolla",
+                  "cor": "Prata",
+                  "placa": "YYT8885",
+                  "tipo": "MOTO",
+                  "idEstabelecimento": 1
+                }
+                
+                """;
+        var response = mvc.perform(
+                put("/veiculo/" + id)
+                        .content(json)
+                        .contentType(MediaType.APPLICATION_JSON)
+        ).andReturn().getResponse();
+
+        Assertions.assertEquals(400, response.getStatus());
+
+    }
+
+
+
+
+
+
+
+    @Test
+    void deveriaExcluirUmVeiculoSemErros() throws Exception {
+
+        Long id = 1L;
+
+        var response = mvc.perform(
+                delete("/veiculo/" + id)
+                        .contentType(MediaType.APPLICATION_JSON)
+        ).andReturn().getResponse();
+
+        Assertions.assertEquals(204, response.getStatus());
+
+    }
+
+
+    @Test
+    void deveriaConsultarUmaPlacaSemErros() throws Exception {
+
+        // ARRANGE
+
+        String cep  = "YYT-8885";
+
+        var response = mvc.perform(
+                get("/veiculo/find/{placa}", cep)
+                        .contentType(MediaType.APPLICATION_JSON)
+        ).andReturn().getResponse();
+
+        Assertions.assertEquals(200, response.getStatus());
+
+    }
+
+
+    @Test
+    void deveriaListarVeiculosSemErros() throws Exception {
+
+        String json = """
+                {
+                  "page": 0,
+                  "size": 1,
+                  "sort": [
+                    "string"
+                  ]
+                }
+                """;
+
+        var response = mvc.perform(
+                get("/veiculo")
+                        .content(json)
+                        .contentType(MediaType.APPLICATION_JSON)
+        ).andReturn().getResponse();
+
+        Assertions.assertEquals(200, response.getStatus());
+
     }
 
 }
